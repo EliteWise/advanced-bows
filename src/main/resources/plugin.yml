@@ -1,0 +1,4 @@
+name: Advanced Arrows
+version: ${project.version}
+main: fr.reborn.advancedarrows.Main
+api-version: 1.13
