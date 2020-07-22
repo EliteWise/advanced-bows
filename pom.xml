@@ -51,6 +51,7 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <sourceDirectory>src/main/java</sourceDirectory>
     </build>
 
     <repositories>
