@@ -22,19 +22,22 @@ public class ArrowParticle implements Listener {
         Projectile projectile = e.getEntity();
         Entity shooter = (Entity) e.getEntity().getShooter();
 
-        if(projectile instanceof Arrow && shooter instanceof Player && projectile.hasMetadata(Bow.EXPLOSIVE_BOW.getBowName())) {
-            new BukkitRunnable() {
+        if(projectile instanceof Arrow && shooter instanceof Player) {
+            for(Bow bow : Bow.values()) {
+                if(projectile.hasMetadata(bow.getBowName())) {
+                    new BukkitRunnable() {
 
-                @Override
-                public void run() {
-                    if(!projectile.isOnGround()) {
-                        projectile.getWorld().spawnParticle(Bow.EXPLOSIVE_BOW.getParticle(), projectile.getLocation(), 1);
-                    } else {
-                        cancel();
-                    }
-
+                        @Override
+                        public void run() {
+                            if(!projectile.isOnGround()) {
+                                projectile.getWorld().spawnParticle(bow.getParticle(), projectile.getLocation(), 1);
+                            } else {
+                                cancel();
+                            }
+                        }
+                    }.runTaskTimerAsynchronously(main, 0, 1);
                 }
-            }.runTaskTimerAsynchronously(main, 0, 1);
+            }
         }
     }
 

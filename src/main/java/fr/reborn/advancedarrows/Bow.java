@@ -11,7 +11,6 @@ public enum Bow {
     Bow(String bowName, Particle particle) {
         this.particle = particle;
         this.bowName = bowName;
-
     }
 
     public String getBowName() {
