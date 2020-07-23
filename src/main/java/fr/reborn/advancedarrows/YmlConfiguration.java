@@ -1,6 +1,10 @@
 package fr.reborn.advancedarrows;
 
 public class YmlConfiguration {
-    public YmlConfiguration(fr.reborn.advancedarrows.Main main) {
+
+    private Main main;
+
+    public YmlConfiguration(Main main) {
+        this.main = main;
     }
 }

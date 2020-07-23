@@ -16,10 +16,8 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new ArrowEffect(),this);
         pluginManager.registerEvents(new ArrowParticle(this),this);
 
-       CraftManagement items = new CraftManagement();
-       items.customRecipe();
-       items.unShape();
-       items.unShapes();
+       CraftManagement craftManagement = new CraftManagement();
+        craftManagement.createRecipe();
 
     }
 
