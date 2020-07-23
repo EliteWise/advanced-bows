@@ -17,7 +17,7 @@ public final class Main extends JavaPlugin {
         pluginManager.registerEvents(new ArrowParticle(this),this);
 
        CraftManagement craftManagement = new CraftManagement();
-        craftManagement.createRecipe();
+       craftManagement.createRecipe();
 
     }
 

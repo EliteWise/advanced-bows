@@ -22,7 +22,7 @@ public class ArrowParticle implements Listener {
         Projectile projectile = e.getEntity();
         Entity shooter = (Entity) e.getEntity().getShooter();
 
-        if(projectile instanceof Arrow && shooter instanceof Player) {
+        if(projectile instanceof Arrow && shooter instanceof Player && projectile.hasMetadata(Bow.EXPLOSIVE_BOW.getBowName())) {
             new BukkitRunnable() {
 
                 @Override
