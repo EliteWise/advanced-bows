@@ -1,8 +1,6 @@
 package fr.reborn.advancedarrows;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -11,16 +9,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class CraftManagement implements Listener {
+
     private Plugin plugin = Main.getPlugin(Main.class);
 
     @SuppressWarnings("deprecation")
     public void customRecipe() {
 
-
-
     ItemStack item = new ItemStack(Material.BOW, 1);
     ItemMeta meta = item.getItemMeta();
-    meta.setDisplayName(Bow.EXPLOSIVEBOW.getBowName());
+    meta.setDisplayName(Bow.EXPLOSIVE_BOW.getBowName());
     item.setItemMeta(meta);
 
     ShapedRecipe r = new ShapedRecipe(item);
