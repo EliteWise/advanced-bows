@@ -13,6 +13,19 @@ public enum Bow {
     private final Material material;
     private final int number;
     private final ItemStack stack;
+    EXPLOSIVE("Lava", Particle.DRIP_LAVA),
+    TELEPORTATION("Teleportation"),
+    ICE("Ice"),
+    INFLAMED("Inflamed"),
+    HUNGER("Hunger"),
+    PREVENT_DAMAGE("Prevent Damage"),
+    BLOCK_PLACEMENT("Block Placement"),
+    BUMP("Bump"),
+    PLAYER_INFOS("Player Infos"),
+    REMOVE_EQUIPMENT("Remove Equipment"),
+    FLYING_SHOT("Flying Shot"),
+    ROUND_HOLE("Round Hole"),
+    LIGHTNING("Lightning");
 
     Bow(String bowName, Particle particle, Material material, int number) {
         this.particle = particle;
