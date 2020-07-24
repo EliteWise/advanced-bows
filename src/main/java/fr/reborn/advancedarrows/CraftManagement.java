@@ -15,7 +15,7 @@ public class CraftManagement implements Listener {
     public void createRecipe() {
         ItemStack item = new ItemStack(Material.BOW);
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(Bow.EXPLOSIVE_BOW.getBowName());
+        itemMeta.setDisplayName(Bow.INFLAMED.getBowName());
         item.setItemMeta(itemMeta);
 
 
