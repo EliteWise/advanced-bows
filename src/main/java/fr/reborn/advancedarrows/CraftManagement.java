@@ -18,6 +18,7 @@ public class CraftManagement implements Listener {
         itemMeta.setDisplayName(Bow.EXPLOSIVE_BOW.getBowName());
         item.setItemMeta(itemMeta);
 
+
         ShapelessRecipe slrr = new ShapelessRecipe(item);
         slrr.addIngredient(3, Material.STRING);
         slrr.addIngredient(3, Material.STICK);

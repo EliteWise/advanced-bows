@@ -1,26 +1,47 @@
 package fr.reborn.advancedarrows;
+import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public enum Bow {
+    EXPLOSIVE_BOW("Lava bow", Particle.DRIP_LAVA, Material.LAVA_BUCKET, 3),
+    FREEZ_BOW("Freeze bow", Particle.DRIP_WATER, Material.ICE, 3);
 
-    EXPLOSIVE_BOW("Lava Bow", Particle.DRIP_LAVA);
+    private final String bowName;
+    private final Particle particle;
+    private final Material material;
+    private final int number;
+    private final ItemStack stack;
 
-    private String bowName;
-    private Particle particle;
-
-    Bow(String bowName, Particle particle) {
+    Bow(String bowName, Particle particle, Material material, int number) {
         this.particle = particle;
         this.bowName = bowName;
+        this.material = material;
+        this.number = number;
+        this.stack = new ItemStack(Material.BOW);
+        ItemMeta meta = this.stack.getItemMeta();
+        meta.setDisplayName(bowName);
+        this.stack.setItemMeta(meta);
     }
 
     public String getBowName() {
         return bowName;
     }
-
-    public Particle getParticle() {
-        return particle;
-
+    public ItemStack getStack(){
+        return stack;
+    }
+    public Material getMaterial(){
+        return material;
     }
 
+    public Integer getNumber(){
+        return number;
+    }
+
+
+    public Particle getParticle() {
+        return particle ;
+    }
 }
 

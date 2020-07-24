@@ -1,6 +1,7 @@
 package fr.reborn.advancedarrows;
 
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -26,7 +27,6 @@ public class ArrowEffect implements Listener {
         Entity entity = a.getEntity();
         Entity projectile = a.getProjectile();
         ItemStack bow = a.getBow();
-
         if (entity.getType() == EntityType.PLAYER && bow.hasItemMeta()) {
             String bowCustomName = bow.getItemMeta().getDisplayName();
             projectile.setMetadata(bowCustomName, new FixedMetadataValue(plugin, "ArrowData"));
@@ -42,6 +42,19 @@ public class ArrowEffect implements Listener {
 
         if (projectile instanceof Arrow && entity instanceof Player && projectile.hasMetadata(Bow.EXPLOSIVE_BOW.getBowName()) && b != null) {
             b.getWorld().getBlockAt(b.getLocation()).getRelative(BlockFace.UP).setType(Material.FIRE);
+        }
+
+        
+
+    }
+    private void iceEffect (ProjectileHitEvent e) {
+        Block b = e.getHitBlock();
+        Entity projectile = e.getEntity();
+        ProjectileSource entity = e.getEntity().getShooter();
+
+
+        if (projectile instanceof Arrow && entity instanceof Player && projectile.hasMetadata(Bow.FREEZ_BOW.getBowName()) && b != null) {
+            b.getWorld().getBlockAt(b.getLocation()).getRelative(BlockFace.UP).setType(Material.ICE);
         }
     }
 

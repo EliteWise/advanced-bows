@@ -54,6 +54,7 @@
         <sourceDirectory>src/main/java</sourceDirectory>
     </build>
 
+
     <repositories>
         <repository>
             <id>spigotmc-repo</id>
@@ -65,6 +66,7 @@
         </repository>
     </repositories>
 
+    
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
