@@ -17,6 +17,9 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class ArrowEffect implements Listener {
 
     private Plugin plugin = Main.getPlugin(Main.class);
@@ -34,27 +37,25 @@ public class ArrowEffect implements Listener {
 
 
     @EventHandler
-    public void onProjectileHit(ProjectileHitEvent e) {
+    public void onProjectileHit(ProjectileHitEvent e) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Block b = e.getHitBlock();
         Entity projectile = e.getEntity();
-        ProjectileSource entity = e.getEntity().getShooter();
+        ProjectileSource shooter = e.getEntity().getShooter();
 
-        if (projectile instanceof Arrow && entity instanceof Player && projectile.hasMetadata(Bow.INFLAMED.getBowName()) && b != null) {
-            b.getWorld().getBlockAt(b.getLocation()).getRelative(BlockFace.UP).setType(Material.FIRE);
+        if (projectile instanceof Arrow && shooter instanceof Player && b != null) {
+            Class<?>[] paramTypes = {Block.class, Entity.class, ProjectileSource.class};
+            for(Bow bow : Bow.values()) {
+                if(projectile.hasMetadata(bow.getBowName())) {
+                    Method method = this.getClass().getDeclaredMethod(bow.getBowName().toLowerCase() + "Effect", paramTypes);
+                    method.invoke(this, b, projectile, shooter);
+                }
+            }
         }
-
-        
 
     }
-    private void iceEffect (ProjectileHitEvent e) {
-        Block b = e.getHitBlock();
-        Entity projectile = e.getEntity();
-        ProjectileSource entity = e.getEntity().getShooter();
 
-
-        if (projectile instanceof Arrow && entity instanceof Player && projectile.hasMetadata(Bow.ICE.getBowName()) && b != null) {
-            b.getWorld().getBlockAt(b.getLocation()).getRelative(BlockFace.UP).setType(Material.ICE);
-        }
+    public void iceEffect (Block block, Entity projectile, ProjectileSource shooter) {
+        block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.ICE);
     }
 
 }

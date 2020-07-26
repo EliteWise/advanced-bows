@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 public class CraftManagement implements Listener {
@@ -13,17 +12,16 @@ public class CraftManagement implements Listener {
 
     @SuppressWarnings("deprecation")
     public void createRecipe() {
-        ItemStack item = new ItemStack(Material.BOW);
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(Bow.INFLAMED.getBowName());
-        item.setItemMeta(itemMeta);
+        for(Bow bow : Bow.values()) {
+            ItemStack item = new ItemStack(bow.getStack());
 
+            ShapelessRecipe slrr = new ShapelessRecipe(item);
+            slrr.addIngredient(3, Material.STRING);
+            slrr.addIngredient(3, Material.STICK);
+            slrr.addIngredient(bow.getNumber(), bow.getCustomRecipe());
+            plugin.getServer().addRecipe(slrr);
+        }
 
-        ShapelessRecipe slrr = new ShapelessRecipe(item);
-        slrr.addIngredient(3, Material.STRING);
-        slrr.addIngredient(3, Material.STICK);
-        slrr.addIngredient(3, Material.FIRE_CHARGE);
-        plugin.getServer().addRecipe(slrr);
     }
 
 }
