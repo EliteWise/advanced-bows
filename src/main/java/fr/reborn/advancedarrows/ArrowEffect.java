@@ -51,7 +51,6 @@ public class ArrowEffect implements Listener {
                 }
             }
         }
-
     }
 
     public void iceEffect (Block block, Entity projectile, ProjectileSource shooter) {

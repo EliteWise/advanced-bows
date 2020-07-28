@@ -7,4 +7,12 @@ public class YmlConfiguration {
     public YmlConfiguration(Main main) {
         this.main = main;
     }
+
+    public Object getEffectParamByName(String effect, String paramName) {
+        return main.getConfig().get(effect + "." + paramName);
+    }
+
+    public boolean isArrowsLootable() {
+        return main.getConfig().getBoolean("lootableArrows");
+    }
 }

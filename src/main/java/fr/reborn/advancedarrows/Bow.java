@@ -18,7 +18,9 @@ public enum Bow {
     REMOVE_EQUIPMENT("Remove Equipment", Particle.DRAGON_BREATH, Material.DIAMOND_CHESTPLATE, 2),
     FLYING_SHOT("Flying Shot", Particle.FIREWORKS_SPARK, Material.FIREWORK_ROCKET, 15),
     ROUND_HOLE("Round Hole", Particle.END_ROD, Material.DIAMOND_SHOVEL, 2),
-    LIGHTNING("Lightning", Particle.CLOUD, Material.REDSTONE, 60);
+    LIGHTNING("Lightning", Particle.CLOUD, Material.REDSTONE, 60),
+    GOLEM("Golem", Particle.NOTE, Material.IRON_BLOCK, 20),
+    HALLUCINOGENIC("Hallucinogenic", Particle.TOTEM, Material.CHORUS_FLOWER, 3);
 
     private final String bowName;
     private final Particle particle;
