@@ -1,6 +1,8 @@
 package fr.reborn.advancedarrows;
 
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -16,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.util.Vector;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -41,7 +44,7 @@ public class ArrowEffect implements Listener {
         Block b = e.getHitBlock();
         Entity projectile = e.getEntity();
         ProjectileSource shooter = e.getEntity().getShooter();
-
+        Entity entity = e.getHitEntity();
         if (projectile instanceof Arrow && shooter instanceof Player && b != null) {
             Class<?>[] paramTypes = {Block.class, Entity.class, ProjectileSource.class};
             for(Bow bow : Bow.values()) {
@@ -51,14 +54,72 @@ public class ArrowEffect implements Listener {
                 }
             }
         }
-
     }
 
     public void iceEffect (Block block, Entity projectile, ProjectileSource shooter) {
         block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.ICE);
     }
 
+    public void inflamedEffect (Block block, Entity projectile, ProjectileSource shooter) {
+        block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.FIRE);
+
+
+        Location loc = block.getLocation();
+
+        int rayon = 5;
+
+        for (int i = 0; i < rayon; i++) {
+            Vector v = loc.toVector();
+            v.setX(v.getX() + i);
+            for (int a = 0; a < 360; a += 360 / rayon) {
+                Block select = block.getWorld().getBlockAt(v.toLocation(block.getWorld()));
+                Bukkit.getServer().broadcastMessage(select.getLocation().toString());
+                block.getWorld().getBlockAt(select.getLocation()).getRelative(BlockFace.UP).setType(Material.FIRE);
+
+                double rad = Math.toRadians(360 / rayon); //vu que j'edit le vecteur v directement
+                double x = v.getX();
+                double z = v.getZ();
+
+                double cos = Math.cos(rad);
+                double sin = Math.sin(rad);
+
+                v = new Vector((cos * x - sin * z), v.getY(), (sin * x + cos * z));
+                Bukkit.broadcastMessage("ca marche l'arc de feu avec zone");
+            }
+        }
+    }
+    public void hungerEffect (Block block, Entity projectile, ProjectileSource shooter) {
+        Player player = (Player)shooter;
+        player.setFoodLevel(5);
+        
+
+
+    }
+    public void explosiveEffect (Block block, Entity projectile, ProjectileSource shooter) {
+        Location loc = block.getLocation();
+        block.getWorld().createExplosion(loc,2F,true);
+
+    }
+    public void bumpEffect (Block block, Entity projectile, ProjectileSource shooter) {
+
+    }
+    public void blockplacementEffect (Block block, Entity projectile, ProjectileSource shooter) {
+
+    }
+    public void teleportationEffect (Block block, Entity projectile, ProjectileSource shooter) {
+        Location loc = block.getLocation();
+        Player player = (Player)shooter;
+        player.teleport(loc);
+        Bukkit.broadcastMessage("Ca marche l'arc de tp");
+
+    }
+    public void removeequipementEffect (Block block, Entity projectile, ProjectileSource player)  {
+
+    }
+
+
 }
+
 
 
 
