@@ -1,5 +1,7 @@
-package fr.reborn.advancedarrows;
+package fr.reborn.advancedarrows.listener;
 
+import fr.reborn.advancedarrows.Bow;
+import fr.reborn.advancedarrows.Main;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -29,10 +31,10 @@ public class ArrowParticle implements Listener {
 
                         @Override
                         public void run() {
-                            if(!projectile.isOnGround()) {
-                                projectile.getWorld().spawnParticle(bow.getParticle(), projectile.getLocation(), 1);
-                            } else {
+                            if(projectile.isOnGround() || projectile == null || projectile.isDead()) {
                                 cancel();
+                            } else {
+                                projectile.getWorld().spawnParticle(bow.getParticle(), projectile.getLocation(), 1);
                             }
                         }
                     }.runTaskTimerAsynchronously(main, 0, 1);

@@ -1,4 +1,6 @@
-package fr.reborn.advancedarrows;
+package fr.reborn.advancedarrows.config;
+
+import fr.reborn.advancedarrows.Main;
 
 public class YmlConfiguration {
 
@@ -12,7 +14,11 @@ public class YmlConfiguration {
         return main.getConfig().get(effect + "." + paramName);
     }
 
-    public boolean isArrowsLootable() {
+    public boolean isCraftEnable(String bow) {
+        return main.getConfig().getBoolean(bow + ".enable");
+    }
+
+    public boolean isArrowLootable() {
         return main.getConfig().getBoolean("lootableArrows");
     }
 }

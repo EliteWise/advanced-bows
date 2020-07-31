@@ -6,21 +6,21 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public enum Bow {
 
-    EXPLOSIVE("Explosive", Particle.CRIT, Material.TNT, 3),
-    TELEPORTATION("Teleportation", Particle.SPELL_WITCH, Material.ENDER_PEARL, 9),
-    ICE("Ice", Particle.SNOWBALL, Material.ICE, 6),
-    INFLAMED("Inflamed", Particle.DRIP_LAVA, Material.LAVA_BUCKET, 3),
-    HUNGER("Hunger", Particle.VILLAGER_ANGRY, Material.COOKED_CHICKEN, 60),
-    PREVENT_DAMAGE("Prevent Damage", Particle.CRIT_MAGIC, Material.SHIELD, 2),
-    BLOCK_PLACEMENT("Block Placement", Particle.BLOCK_CRACK, Material.OBSIDIAN, 20),
-    BUMP("Bump", Particle.EXPLOSION_NORMAL, Material.TNT, 30),
-    PLAYER_INFOS("Player Infos", Particle.ENCHANTMENT_TABLE, Material.BOOK, 35),
-    REMOVE_EQUIPMENT("Remove Equipment", Particle.DRAGON_BREATH, Material.DIAMOND_CHESTPLATE, 2),
-    FLYING_SHOT("Flying Shot", Particle.FIREWORKS_SPARK, Material.FIREWORK_ROCKET, 15),
-    ROUND_HOLE("Round Hole", Particle.END_ROD, Material.DIAMOND_SHOVEL, 2),
-    LIGHTNING("Lightning", Particle.CLOUD, Material.REDSTONE, 60),
-    GOLEM("Golem", Particle.NOTE, Material.IRON_BLOCK, 20),
-    HALLUCINOGENIC("Hallucinogenic", Particle.TOTEM, Material.CHORUS_FLOWER, 3);
+    EXPLOSIVE("Explosive", Particle.CRIT, Material.TNT, 1),
+    TELEPORTATION("Teleportation", Particle.SPELL_WITCH, Material.ENDER_PEARL, 1),
+    ICE("Ice", Particle.SNOWBALL, Material.ICE, 1),
+    INFLAMED("Inflamed", Particle.DRIP_LAVA, Material.LAVA_BUCKET, 1),
+    HUNGER("Hunger", Particle.VILLAGER_ANGRY, Material.COOKED_CHICKEN, 1),
+    PREVENT_DAMAGE("Prevent Damage", Particle.CRIT_MAGIC, Material.SHIELD, 1),
+    BLOCK_PLACEMENT("Block Placement", Particle.BLOCK_CRACK, Material.OBSIDIAN, 1),
+    BUMP("Bump", Particle.EXPLOSION_NORMAL, Material.TNT, 1),
+    PLAYER_INFOS("Player Infos", Particle.ENCHANTMENT_TABLE, Material.BOOK, 1),
+    REMOVE_EQUIPMENT("Remove Equipment", Particle.DRAGON_BREATH, Material.DIAMOND_CHESTPLATE, 1),
+    FLYING_SHOT("Flying Shot", Particle.FIREWORKS_SPARK, Material.FIREWORK_ROCKET, 1),
+    ROUND_HOLE("Round Hole", Particle.END_ROD, Material.DIAMOND_SHOVEL, 1),
+    LIGHTNING("Lightning", Particle.CLOUD, Material.REDSTONE, 1),
+    GOLEM("Golem", Particle.NOTE, Material.IRON_BLOCK, 1),
+    HALLUCINOGENIC("Hallucinogenic", Particle.TOTEM, Material.CHORUS_FLOWER, 1);
 
     private final String bowName;
     private final Particle particle;

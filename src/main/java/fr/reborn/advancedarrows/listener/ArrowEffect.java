@@ -1,6 +1,8 @@
-package fr.reborn.advancedarrows;
+package fr.reborn.advancedarrows.listener;
 
 
+import fr.reborn.advancedarrows.Bow;
+import fr.reborn.advancedarrows.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,7 +27,12 @@ import java.lang.reflect.Method;
 
 public class ArrowEffect implements Listener {
 
+    private Main main;
     private Plugin plugin = Main.getPlugin(Main.class);
+
+    public ArrowEffect(Main main) {
+        this.main = main;
+    }
 
     @EventHandler
     public void onEntityShootBow(EntityShootBowEvent a) {
@@ -44,23 +51,26 @@ public class ArrowEffect implements Listener {
         Block b = e.getHitBlock();
         Entity projectile = e.getEntity();
         ProjectileSource shooter = e.getEntity().getShooter();
-        Entity entity = e.getHitEntity();
+        Entity entityHit = e.getHitEntity();
         if (projectile instanceof Arrow && shooter instanceof Player && b != null) {
-            Class<?>[] paramTypes = {Block.class, Entity.class, ProjectileSource.class};
+            Class<?>[] paramTypes = {Block.class, Entity.class, ProjectileSource.class, Entity.class};
             for(Bow bow : Bow.values()) {
                 if(projectile.hasMetadata(bow.getBowName())) {
                     Method method = this.getClass().getDeclaredMethod(bow.getBowName().toLowerCase() + "Effect", paramTypes);
-                    method.invoke(this, b, projectile, shooter);
+                    method.invoke(this, b, projectile, shooter, entityHit);
                 }
             }
         }
     }
 
-    public void iceEffect (Block block, Entity projectile, ProjectileSource shooter) {
-        block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.ICE);
+    public void iceEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
+        if(entityHit instanceof Player) {
+            Player player = (Player)entityHit;
+            Bukkit.broadcastMessage("Walk speed value: " + player.getWalkSpeed());
+        }
     }
 
-    public void inflamedEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void inflamedEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
         block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.FIRE);
 
 
@@ -88,32 +98,32 @@ public class ArrowEffect implements Listener {
             }
         }
     }
-    public void hungerEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void hungerEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
         Player player = (Player)shooter;
         player.setFoodLevel(5);
         
 
 
     }
-    public void explosiveEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void explosiveEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
         Location loc = block.getLocation();
         block.getWorld().createExplosion(loc,2F,true);
 
     }
-    public void bumpEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void bumpEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
 
     }
-    public void blockplacementEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void blockplacementEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
 
     }
-    public void teleportationEffect (Block block, Entity projectile, ProjectileSource shooter) {
+    public void teleportationEffect (Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
         Location loc = block.getLocation();
         Player player = (Player)shooter;
         player.teleport(loc);
         Bukkit.broadcastMessage("Ca marche l'arc de tp");
 
     }
-    public void removeequipementEffect (Block block, Entity projectile, ProjectileSource player)  {
+    public void removeequipementEffect (Block block, Entity projectile, ProjectileSource player, Entity entityHit)  {
 
     }
 
