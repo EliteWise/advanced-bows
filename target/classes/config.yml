@@ -1,0 +1,34 @@
+# Parameters of effects
+
+EXPLOSIVE:
+  enable: true
+TELEPORTATION:
+  enable: true
+ICE:
+  enable: true
+INFLAMED:
+  enable: true
+HUNGER:
+  enable: true
+PREVENT_DAMAGE:
+  enable: true
+BLOCK_PLACEMENT:
+  enable: true
+BUMP:
+  enable: true
+PLAYER_INFOS:
+  enable: true
+REMOVE_EQUIPMENT:
+  enable: true
+FLYING_SHOT:
+  enable: true
+ROUND_HOLE:
+  enable: true
+LIGHTNING:
+  enable: true
+GOLEM:
+  enable: true
+HALLUCINOGENIC:
+  enable: true
+
+lootableArrows: true

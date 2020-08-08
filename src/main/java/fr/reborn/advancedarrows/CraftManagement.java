@@ -20,7 +20,7 @@ public class CraftManagement implements Listener {
     public void createRecipe() {
         YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
         for(Bow bow : Bow.values()) {
-            if(ymlConfiguration.isCraftEnable(bow.getBowName())) {
+            if(ymlConfiguration.isCraftEnable(bow.getBowName().toUpperCase())) {
                 ItemStack item = new ItemStack(bow.getStack());
 
                 ShapelessRecipe slrr = new ShapelessRecipe(item);
