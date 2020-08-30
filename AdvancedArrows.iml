@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
@@ -31,11 +31,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../API/spigot-1.15.1.jar!/" />
+          <root url="jar://$USER_HOME$/API/spigot-1.15.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../API/spigot-1.15.1.jar!/" />
+          <root url="jar://$USER_HOME$/API/spigot-1.15.1.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
