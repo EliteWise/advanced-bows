@@ -2,34 +2,37 @@
 
 EXPLOSIVE:
   enable: true
+  power: 2F
 TELEPORTATION:
   enable: true
+  entities-only: false
 ICE:
   enable: true
+  delay: 4
 INFLAMED:
   enable: true
+  entities-only: false
 HUNGER:
   enable: true
-PREVENT_DAMAGE:
-  enable: true
+  food: 4
 BLOCK_PLACEMENT:
   enable: true
   block: DIAMOND_BLOCK
 BUMP:
   enable: true
+  vertical-bump: 0.6
 PLAYER_INFOS:
   enable: true
 REMOVE_EQUIPMENT:
   enable: true
-FLYING_SHOT:
-  enable: true
+  percent: 50
 ROUND_HOLE:
   enable: true
 LIGHTNING:
   enable: true
-GOLEM:
-  enable: true
+  entities-only: false
 HALLUCINOGENIC:
   enable: true
+  delay: 6
 
 lootableArrows: true

@@ -6,6 +6,7 @@ TELEPORTATION:
   enable: true
 ICE:
   enable: true
+  delay: 40
 INFLAMED:
   enable: true
 HUNGER:
@@ -14,6 +15,7 @@ PREVENT_DAMAGE:
   enable: true
 BLOCK_PLACEMENT:
   enable: true
+  block: DIAMOND_BLOCK
 BUMP:
   enable: true
 PLAYER_INFOS:
