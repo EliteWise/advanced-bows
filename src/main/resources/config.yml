@@ -14,6 +14,7 @@ PREVENT_DAMAGE:
   enable: true
 BLOCK_PLACEMENT:
   enable: true
+  block: DIAMOND_BLOCK
 BUMP:
   enable: true
 PLAYER_INFOS:
