@@ -16,6 +16,9 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+
+        saveDefaultConfig();
+
         ymlConfigRequest = new YmlConfiguration(this);
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ArrowEffect(this),this);

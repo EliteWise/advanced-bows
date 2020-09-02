@@ -1,8 +1,13 @@
 # Parameters of effects
 
+# You can disable each effect by changing enable parameter to false.
+
+# Delay are calculated in seconds.
+# If entities-only is disabled, blocks will also be affected by the effect.
+
 EXPLOSIVE:
   enable: true
-  power: 2F
+  power: 2.0
 TELEPORTATION:
   enable: true
   entities-only: false
@@ -12,6 +17,7 @@ ICE:
 INFLAMED:
   enable: true
   entities-only: false
+  delay: 6
 HUNGER:
   enable: true
   food: 4
@@ -28,11 +34,14 @@ REMOVE_EQUIPMENT:
   percent: 50
 ROUND_HOLE:
   enable: true
+  radius: 2
 LIGHTNING:
   enable: true
   entities-only: false
 HALLUCINOGENIC:
   enable: true
   delay: 6
+
+# Only lootable arrows from custom bows will be disable if you turn it to false.
 
 lootableArrows: true

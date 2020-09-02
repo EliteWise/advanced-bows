@@ -16,6 +16,8 @@ public class CancelAnvil implements Listener {
         Inventory inventory = e.getInventory();
         ItemStack clickedItem = e.getCurrentItem();
 
+        if(e.getCurrentItem() == null) return;
+
         if(inventory.getType() == InventoryType.ANVIL && clickedItem.getType() == Material.BOW && e.getSlotType() == InventoryType.SlotType.RESULT) {
             for(Bow bow : Bow.values()) {
                 if(clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase(bow.getBowName())) {

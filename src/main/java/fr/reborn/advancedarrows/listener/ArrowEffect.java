@@ -8,6 +8,7 @@ import net.minecraft.server.v1_15_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
@@ -31,8 +32,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Random;
-
-import static org.apache.commons.lang.math.RandomUtils.nextInt;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ArrowEffect implements Listener {
 
@@ -61,10 +61,13 @@ public class ArrowEffect implements Listener {
         Entity projectile = e.getEntity();
         ProjectileSource shooter = e.getEntity().getShooter();
         Entity entityHit = e.getHitEntity();
+
+        YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
+
         if (projectile instanceof Arrow && shooter instanceof Player) {
             Class<?>[] paramTypes = {Block.class, Entity.class, ProjectileSource.class, Entity.class};
             for (Bow bow : Bow.values()) {
-                if (projectile.hasMetadata(bow.getBowName())) {
+                if (ymlConfiguration.isCraftEnable(bow.getBowName().toUpperCase().replace(" ", "_")) && projectile.hasMetadata(bow.getBowName())) {
                     Method method = this.getClass().getDeclaredMethod(bow.getBowName().toLowerCase().replace(" ", "") + "Effect", paramTypes);
                     method.invoke(this, b, projectile, shooter, entityHit);
                 }
@@ -98,13 +101,32 @@ public class ArrowEffect implements Listener {
         YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
         boolean entities_only = (boolean) ymlConfiguration.getEffectParamByName("INFLAMED", "entities-only");
 
-        if(entities_only) {
-            Location entityLoc = entityHit.getLocation();
-            block.getWorld().getBlockAt(entityLoc).getRelative(BlockFace.UP).setType(Material.FIRE);
-        } else {
+        ArrayList<Block> inflamedBlocks = new ArrayList<>();
+        inflamedBlocks.clear();
 
-        }
+            Location hitLoc = entities_only ? (entityHit != null ? entityHit.getLocation() : null) : (entityHit != null ? entityHit.getLocation() : block.getLocation());
+            World worldBlock = block.getWorld();
+            if(hitLoc != null) {
+                for(int i = 0; i < 3; i++) {
+                    Block currentXBlock = worldBlock.getBlockAt(hitLoc.add(-1 + i, 0, 0)).getRelative(BlockFace.UP);
+                    Block currentZBlock = worldBlock.getBlockAt(hitLoc.add(0, 0, -1 + i)).getRelative(BlockFace.UP);
 
+                    if(currentXBlock.getType() == Material.AIR) {
+                        currentXBlock.setType(Material.FIRE);
+                        inflamedBlocks.add(currentXBlock);
+                        if(currentZBlock.getType() == Material.AIR) {
+                            currentZBlock.setType(Material.FIRE);
+                            inflamedBlocks.add(currentZBlock);
+                        }
+                    }
+                }
+                Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        inflamedBlocks.forEach(fire -> fire.setType(Material.AIR));
+                    }
+                }, 20 * (int) ymlConfiguration.getEffectParamByName("INFLAMED", "delay"));
+            }
     }
 
     public void hungerEffect(Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
@@ -120,7 +142,7 @@ public class ArrowEffect implements Listener {
     public void explosiveEffect(Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
         Location loc = block.getLocation();
         YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
-        block.getWorld().createExplosion(loc, (float) ymlConfiguration.getEffectParamByName("EXPLOSIVE", "power"), true);
+        block.getWorld().createExplosion(loc, (Float.valueOf((String) ymlConfiguration.getEffectParamByName("EXPLOSIVE", "power"))), false);
     }
 
     public void bumpEffect(Block block, Entity projectile, ProjectileSource shooter, Entity entityHit) {
@@ -163,14 +185,19 @@ public class ArrowEffect implements Listener {
             YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
 
             if (r.nextInt(100) < (int) ymlConfiguration.getEffectParamByName("REMOVE_EQUIPMENT", "percent")) {
-                playerHit.getInventory().setItem(nextInt(4) + 100, new ItemStack(Material.AIR));
+                playerHit.getInventory().setItem(r.nextInt(4) + 36, new ItemStack(Material.AIR));
             }
         }
     }
 
     public void lightningEffect(Block block, Entity projectile, ProjectileSource player, Entity entityHit) {
-        entityHit.getWorld().strikeLightning(entityHit.getLocation());
-        block.getWorld().strikeLightning(block.getLocation());
+        YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
+        boolean entities_only = (boolean) ymlConfiguration.getEffectParamByName("LIGHTNING", "entities-only");
+
+        Location hitLoc = entities_only ? (entityHit != null ? entityHit.getLocation() : null) : (entityHit != null ? entityHit.getLocation() : block.getLocation());
+        if(hitLoc != null) {
+            hitLoc.getWorld().strikeLightning(hitLoc);
+        }
     }
 
        public void setEntityNoAI(Entity entity) {
@@ -239,8 +266,10 @@ public class ArrowEffect implements Listener {
             Player playerHit = (Player) entityHit;
             Player shooter = (Player) player;
 
-            shooter.sendMessage(playerHit.getDisplayName()+ "\n" + playerHit.getFoodLevel() + "\n" + Math.round(playerHit.getHealth()) + "\n" + playerHit.getInventory().getBoots().getType().name() +  "\n" + " message");
-            playerHit.getActivePotionEffects().forEach(effects -> shooter.sendMessage("" + effects.getType().getName()));
+            AtomicInteger index = new AtomicInteger(1);
+
+            shooter.sendMessage("§6Name: §f" + playerHit.getDisplayName() + "\n" + "§6Health: §f" + Math.round(playerHit.getHealth()) + "\n" + "§6Food Level: §f" + playerHit.getFoodLevel());
+            playerHit.getActivePotionEffects().forEach(effects -> shooter.sendMessage("§6" + index.getAndIncrement() + ". Potion Effect: §f" + effects.getType().getName()));
         }
     }
 
@@ -248,8 +277,9 @@ public class ArrowEffect implements Listener {
         block.getWorld().getBlockAt(block.getLocation()).getRelative(BlockFace.UP).setType(Material.AIR);
 
         Location loc = block.getLocation();
+        YmlConfiguration ymlConfiguration = new YmlConfiguration(main);
 
-        int rayon = 2;
+        int rayon = (int) ymlConfiguration.getEffectParamByName("ROUND_HOLE", "radius");
         int tmp = rayon;
 
         for (int i = 0; i < rayon; i++) {
