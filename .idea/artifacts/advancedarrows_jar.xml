@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="advancedarrows:jar">
-    <output-path>$USER_HOME$/Documents/Odyssia dev</output-path>
-    <root id="archive" name="advancedarrows.jar">
-      <element id="module-output" name="advancedarrows" />
-    </root>
-  </artifact>
-</component>
